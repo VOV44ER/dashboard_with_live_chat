@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend-react
+  labels:
+    app: frontend-react
+spec:
+  replicas: 1
+  template:
+    metadata:
+      name: frontend-react
+      labels:
+        app: frontend-react
+    spec:
+      containers:
+        - name: frontend-react
+          image: registry.digitalocean.com/k8s-talkbe-cr/frontend-react:master
+          imagePullPolicy: Always
+          env:
+            - name: REACT_APP_BASE_URL
+              value: https://api.dev.talkbe.app/
+            - name: REACT_APP_API_VAR
+              value: https://whatever/
+      restartPolicy: Always
+  selector:
+    matchLabels:
+      app: frontend-react
